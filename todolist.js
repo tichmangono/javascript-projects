@@ -32,6 +32,7 @@ function addItem(e) {
         //Append li to list
 
         items.appendChild(li)
+        document.getElementById('inputItem').value =""
     } else {
       alert("Please insert a value")
     }
@@ -46,3 +47,35 @@ function removeItem(e){
       items.removeChild(li);
   }
 }
+
+
+// Grab the input from the search button
+var searchTxt =   document.getElementById('inputSearch');
+var searchBtn = document.getElementById('btnSearch');
+//console.log(search)
+
+// add an event listener to search
+searchTxt.addEventListener('keyup', searchItem);
+searchBtn.addEventListener('click', searchItem);
+
+// function to search items
+function searchItem(e){
+    var keyword = searchTxt.value.toLowerCase(); //convert to lower
+    //console.log(items.childNodes);
+    //var children = items.childNodes;
+    //console.log(children.length);
+
+    var listItems = items.getElementsByTagName('li');
+
+    Array.from(listItems).forEach(function(itm){
+      var itmName = itm.firstChild.textContent;
+      console.log(itmName);
+        if (itmName.toLowerCase().indexOf(keyword) != -1){
+          //Let it show if it matches
+          itm.style.display ='block'
+          //otherwise hide it
+        } else {
+          itm.style.display = 'none'
+        }
+    });
+  }
